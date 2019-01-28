@@ -1,0 +1,14 @@
+<div class="container">
+  <h3 class="file-name">{{file.filename}}</h3>
+
+  <div class="editor">
+
+    <ace-editor [(text)]="file.content"
+                [mode]="getMode(file.filename)"
+                [readOnly]="true"
+                #editor>
+    </ace-editor>
+
+  </div>
+
+</div>

@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  position: relative;
+}
+.ace-eclipse .ace_gutter {
+  //background: $gray-100 !important;
+  border-right: none !important;
+  //box-shadow: 1px 1px 4px -1px $ol-shadow-color;
+}
+.ace_editor {
+  //border: 1px solid $ol-border-color;
+  //box-shadow: 0 1px 5px -2px $ol-shadow-color;
+  height: 400px;
+}
+
+monaco-editor { height: 500px; display:block; }
+
+
+

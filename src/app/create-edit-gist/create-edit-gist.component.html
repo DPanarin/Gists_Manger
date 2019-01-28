@@ -1,0 +1,50 @@
+<div class="container">
+
+  <form [formGroup]="form" class="form" novalidate (submit)="onSubmit(form.value)">
+
+    <div class="gist">
+      <label for="description">Gist description:</label>
+      <input formControlName="description" type="text" id="description">
+
+      <label for="type" *ngIf="!editMode">Public gist:</label>
+      <input formControlName="public" type="checkbox" id="type" *ngIf="!editMode">
+
+      <button type="submit" [disabled]="!form.valid" *ngIf="!editMode">Create gist</button>
+      <button type="submit" [disabled]="!form.valid||form.untouched" *ngIf="editMode">Edit gist</button>
+    </div>
+
+
+
+    <div class="files" formArrayName="files">
+
+      <ng-container *ngFor="let file of filesArray.value; trackBy resolveTrackBy; let i = index">
+        <div [formGroupName]="i" class="file">
+
+          <div class="filename">
+            <label for="filename">Filename:</label>
+            <input formControlName="filename" type="text" id="filename" class="filename">
+            <button type="button" (click)="deleteFile(file.filename, i)" *ngIf="editMode">X Delete file</button>
+            <select formControlName="extension" *ngIf="!editMode">
+              <option name="File extension" *ngFor="let value of fileType" [value]="value">{{value}}</option>
+            </select>
+          </div>
+
+
+          <div class="editor">
+            <label>File content:
+              <ace-editor [formControl]="form.controls['files'].controls[i].controls['content']" id="{{i}}" #editor [mode]="getMode(file.filename)"></ace-editor>
+              <!--<textarea formControlName="content" cols="60" rows="10" id="content"></textarea>-->
+            </label>
+          </div>
+
+        </div>
+        <hr>
+      </ng-container>
+      <button type="button" (click)="addFileGroup()">+ create new file</button>
+
+    </div>
+
+  </form>
+
+</div>
+

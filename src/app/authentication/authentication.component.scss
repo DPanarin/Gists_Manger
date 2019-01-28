@@ -1,0 +1,29 @@
+.container {
+  margin: auto;
+  width:300px;
+  height: 200px;
+  border: 1px solid #4286f4;
+  padding: 20px;
+  margin-top: 20%;
+  .form {
+    .fields-group {
+      display: flex;
+      flex-direction: column;
+      .input1, .input2 {
+        padding: 10px;
+        align-self: center;
+        label, input {
+          display: block;
+        }
+        input {
+          width: 100%;
+        }
+      }
+
+    }
+    .submit {
+      display: block;
+      margin: auto;
+    }
+  }
+}

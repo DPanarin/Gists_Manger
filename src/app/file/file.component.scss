@@ -1,0 +1,25 @@
+.container {
+  //position: absolute;
+  //left: 40vw;
+  //top: 0;
+  //width: 60vw;
+  //height: 90vh;
+  background-color: darken(#dbdbdb, 20%);
+  height: 90vh;
+  //transform: translateY(-107px);
+  .file-name {
+    text-align: center;
+    margin: 0;
+  }
+
+  .editor {
+    padding: 30px;
+  }
+}
+#editor {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+}

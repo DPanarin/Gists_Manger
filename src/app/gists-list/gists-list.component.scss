@@ -1,0 +1,76 @@
+.container {
+  //width: 20%;
+  //height: 90vh;
+  //background-color: #dbdbdb;
+  font-family: sans-serif;
+  //transform: translateY(10vh);
+  display: flex;
+  padding-top: 10vh;
+
+  .list-gists {
+    width: 20%;
+    height: 90vh;
+    background-color: #dbdbdb;
+  }
+
+  .router {
+    width: 80%;
+    height: 90vh;
+  }
+
+  .add-gist {
+    text-align: center;
+    padding-top: 10px;
+    a {
+      cursor: pointer;
+      width: 100%;
+      user-select: none;
+      text-decoration: none;
+      color: #000;
+    }
+  }
+  .item {
+    cursor: pointer;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    color: #000;
+    .link-container {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      //text-overflow: ellipsis;
+      width: 70%;
+      a {
+        text-decoration: none;
+        width: 350px;
+        color: #000;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: 3.3s;
+        transition-timing-function: linear;
+      }
+    }
+    img {
+      margin: 0 5px 0 5px;
+      float: right;
+      width: 18px;
+      height: 18px;
+    }
+  }
+  .link-container:hover{
+    a {
+      text-align: left;
+      transform: translateX(-200px);
+    }
+  }
+  .gist-view {
+    position: relative;
+  }
+}
+
+.active {
+  //background-image: linear-gradient(90deg, #dbdbdb, darken(#dbdbdb, 10%));
+  background-color: darken(#dbdbdb, 10%);
+}

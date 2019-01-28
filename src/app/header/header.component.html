@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="site-logo">
+    <div class="logo-text">
+      <div class="bold">
+        GitHub
+      </div>
+      <div>Gists Manger</div>
+    </div>
+  </div>
+  <div *ngIf="!userLogged" class="login-btn">
+    <a [href]="logInLink">Log in via GitHub</a>
+  </div>
+  <div class="logged-block" *ngIf="userLogged">
+    <span>{{userName}}</span>
+    <a href="/" (click)="logOut()">Log out</a>
+  </div>
+</div>

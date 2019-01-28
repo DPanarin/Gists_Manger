@@ -1,0 +1,27 @@
+<div class="container">
+
+  <div class="list-gists">
+
+    <div class="add-gist" routerLinkActive="active">
+      <a [routerLink]="['create']">
+        + Add new gist
+      </a>
+    </div>
+    <div class="item" *ngFor="let gist of gistsList" routerLinkActive="active">
+      <div class="link-container">
+        <a [routerLink]="[gist.id]"
+           routerLinkActive="active">
+          {{gist.description}}
+        </a>
+      </div>
+      <img src="/assets/trash-can.png" alt="" (click)="deleteGist(gist)">
+      <img src="/assets/edit-icon.png" alt="" [routerLink]="[gist.id, 'edit']">
+    </div>
+
+  </div>
+
+  <div class="router">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

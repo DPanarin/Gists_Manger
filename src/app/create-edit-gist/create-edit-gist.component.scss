@@ -1,0 +1,28 @@
+.container {
+  background-color: darken(#dbdbdb, 20%);;
+  height: 90vh;
+  overflow-y: scroll;
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .files {
+      .file {
+        .filename {
+          display: inline-block;
+        }
+        label, input {
+          display: block;
+        }
+        .editor {
+          width: 650px;
+          height: 250px;
+        }
+      }
+    }
+  }
+}
+ace-editor {
+  width: 650px;
+  height: 250px;
+}

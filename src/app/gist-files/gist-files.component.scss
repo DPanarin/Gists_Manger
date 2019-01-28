@@ -1,0 +1,49 @@
+.container {
+  //position: absolute;
+  //left: 20vw;
+  //top: 0;
+  //width: 20vw;
+  //height: 90vh;
+  //transform: translateY(-107px);
+  display: flex;
+
+  .list-files {
+    background-color: darken(#dbdbdb, 10%);
+    width: 26.7%;
+    height: 90vh;
+  }
+
+  .router {
+    width: 80%;
+    height: 90vh;
+  }
+
+  .add-file {
+    padding-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    user-select: none;
+  }
+  .item {
+    cursor: pointer;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    color: #000;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    img {
+      margin: 0 5px 0 5px;
+      float: right;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.active {
+  //background-image: linear-gradient(90deg, darken(#dbdbdb, 10%), darken(#dbdbdb, 20%));
+  background-color: darken(#dbdbdb, 20%);
+}
