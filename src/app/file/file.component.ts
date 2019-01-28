@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GitHubService} from '../git-hub.service';
 import {FileInterface} from '../file-interface';
+import {ModeService} from '../mode.service';
 
 @Component({
   selector: 'app-file',
@@ -15,7 +16,7 @@ export class FileComponent implements OnInit, AfterViewInit {
 
   file: FileInterface;
 
-  constructor(private route: ActivatedRoute, private apiService: GitHubService) { }
+  constructor(private route: ActivatedRoute, private apiService: GitHubService, private modeService: ModeService) { }
 
   ngOnInit() {
     this.route.data.subscribe( (data: any) => {
@@ -32,20 +33,7 @@ export class FileComponent implements OnInit, AfterViewInit {
   }
 
   getMode(filename: string) {
-    const arrLength = filename.split('.').length;
-    const fileExtension = filename.split('.')[arrLength - 1];
-    if (fileExtension === 'js' || fileExtension === 'javascript' || fileExtension === 'ts') {
-      return 'javascript';
-    }
-    if (fileExtension === 'json') {
-      return 'json';
-    }
-    if (fileExtension === 'css') {
-      return 'css';
-    }
-    if (fileExtension === 'html') {
-      return 'html';
-    }
+    return this.modeService.getMode(filename);
   }
 
   ngAfterViewInit(): void {

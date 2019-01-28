@@ -4,6 +4,7 @@ import {GitHubService} from '../git-hub.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BaseGistInterface, GistInterface} from '../gist-interface';
 import {FileInterface} from '../file-interface';
+import {ModeService} from '../mode.service';
 
 interface GistFormDataInterface extends BaseGistInterface {
   files: FileInterface[];
@@ -29,7 +30,8 @@ export class CreateEditGistComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private gitApiService: GitHubService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private modeService: ModeService) { }
 
   ngOnInit() {
     this.route.data.subscribe( data => {
@@ -168,19 +170,6 @@ export class CreateEditGistComponent implements OnInit {
   }
 
   getMode(filename: string) {
-    const arrLength = filename.split('.').length;
-    const fileExtension = filename.split('.')[arrLength - 1];
-    if (fileExtension === 'js' || fileExtension === 'javascript' || fileExtension === 'ts') {
-      return 'javascript';
-    }
-    if (fileExtension === 'json') {
-      return 'json';
-    }
-    if (fileExtension === 'css') {
-      return 'css';
-    }
-    if (fileExtension === 'html') {
-      return 'html';
-    }
+    return this.modeService.getMode(filename);
   }
 }
