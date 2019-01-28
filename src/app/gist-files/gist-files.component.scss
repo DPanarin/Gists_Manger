@@ -11,6 +11,16 @@
     background-color: darken(#dbdbdb, 10%);
     width: 26.7%;
     height: 90vh;
+    .add-file {
+      padding: 0;
+      margin: 0;
+      padding-top: 10px;
+    }
+    .created {
+      text-align: center;
+      color: lightslategrey;
+      font-size: 12px;
+    }
   }
 
   .router {
