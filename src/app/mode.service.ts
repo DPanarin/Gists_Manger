@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class ModeService {
   private defaultMode = 'text';
 
+  // TODO add enum ng g enum
+
   constructor() { }
 
   getMode(filename: string) {

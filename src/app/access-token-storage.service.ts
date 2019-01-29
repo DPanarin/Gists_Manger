@@ -5,25 +5,25 @@ import { Injectable } from '@angular/core';
 })
 export class AccessTokenStorageService {
 
-  private tokenPresent = false;
+  private readonly key = 'currentToken';
 
-  constructor() { }
+  get tokenPresent() {
+    return this.isTokenPresent();
+  }
 
   setAccessToken(token: string) {
-    localStorage.setItem('currentToken', token);
-    this.tokenPresent = true;
+    localStorage.setItem(this.key, token);
   }
 
   getAccessToken(): string {
-    return localStorage.getItem('currentToken');
+    return localStorage.getItem(this.key);
   }
 
   isTokenPresent(): boolean {
-    return !!localStorage.getItem('currentToken');
+    return !!localStorage.getItem(this.key);
   }
 
   deleteToken() {
-    localStorage.removeItem('currentToken');
-    this.tokenPresent = false;
+    localStorage.removeItem(this.key);
   }
 }

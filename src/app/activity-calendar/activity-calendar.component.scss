@@ -1,0 +1,41 @@
+.container {
+  h5 {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .header {
+    display: flex;
+    .day-name {
+      font-family: sans-serif;
+      width: 35px;
+      height: 30px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  .month-days {
+    display: flex;
+    flex-wrap: wrap;
+    .day {
+      font-family: sans-serif;
+      font-size: 8px;
+      margin: 2px 5px 2px 5px;
+      width: 25px;
+      height: 25px;
+      border: 1px solid white;
+      p {
+        padding: 0;
+        margin: 0;
+      }
+
+    }
+  }
+}
+
+.activity-present {
+  background-color: darken(#d8d8d8, 30%);
+}

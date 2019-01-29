@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {AccessTokenStorageService} from '../access-token-storage.service';
 import {GitHubService} from '../git-hub.service';
 import {BehaviorService} from '../behavior.service';
+import {catchError, switchMap, tap} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   userName: string;
 
-  logInLink = 'https://github.com/login/oauth/authorize' + '?scope=gist repo' + '?&client_id=' + this.clientId;
+  logInLink = `https://github.com/login/oauth/authorize?scope=gist repo?&client_id=${this.clientId}`;
 
 
   userLogged = false;
@@ -33,21 +35,30 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+
     if (this.tokenStorage.isTokenPresent()) {
       this.behaviorService.onTokenCreate.emit();
     }
   }
 
   getUser() {
-    this.behaviorService.onTokenCreate.subscribe(() => {
-      this.apiService.getCurrentUser().subscribe(user => {
+    this.behaviorService.onTokenCreate
+      .pipe(switchMap(() => this.apiService.getCurrentUser()))
+      .subscribe(user => {
         this.userName = user['login'];
         this.userLogged = true;
         this.router.navigate(['/gists']);
-      }, (error) => {
-        this.userLogged = false;
-      });
-    });
+      }, () => (this.userLogged = false));
+
+    // this.behaviorService.onTokenCreate.subscribe(() => {
+    //   this.apiService.getCurrentUser().subscribe(user => {
+    //     this.userName = user['login'];
+    //     this.userLogged = true;
+    //     this.router.navigate(['/gists']);
+    //   }, (error) => {
+    //     this.userLogged = false;
+    //   });
+    // });
   }
 
 

@@ -1,0 +1,17 @@
+<div class="container">
+
+  <h5>Your last month activity</h5>
+
+  <div class="header">
+
+    <div class="day-name" *ngFor="let day of weekDays">{{day}}</div>
+
+  </div>
+
+  <div class="month-days" *ngIf="monthDays && gists">
+
+    <div class="day" *ngFor="let day of monthDays" [class.activity-present]="hasActivity(day)" ><p *ngIf="day">{{day}}</p></div>
+
+  </div>
+
+</div>

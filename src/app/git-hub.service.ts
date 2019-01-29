@@ -33,7 +33,7 @@ export class GitHubService {
   }
 
   getGistsList() {
-    return this.httpClient.get(this.basePath, { params: {'scopes': ['gists']}});
+    return this.httpClient.get<GistInterface[]>(this.basePath, { params: {'scopes': ['gists']}});
   }
 
   getGist(gistId: string) {

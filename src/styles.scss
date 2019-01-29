@@ -11,6 +11,7 @@ html, body {
   top: 0;
   left: 0;
   position: relative;
+  overflow: hidden;
 }
 .ace-eclipse .ace_gutter {
   //background: $gray-100 !important;
@@ -23,7 +24,16 @@ html, body {
   height: 400px;
 }
 
-monaco-editor { height: 500px; display:block; }
+
+app-activity-calendar {
+  z-index: 10;
+  position: absolute;
+  width: 245px;
+  height: 210px;
+  background: #d8d8d8;
+  right: 20px;
+  bottom: 20px;
+}
 
 
 

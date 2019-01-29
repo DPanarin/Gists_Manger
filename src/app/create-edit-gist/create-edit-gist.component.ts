@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BaseGistInterface, GistInterface} from '../gist-interface';
 import {FileInterface} from '../file-interface';
 import {ModeService} from '../mode.service';
+import {map} from 'rxjs/operators';
 
 interface GistFormDataInterface extends BaseGistInterface {
   files: FileInterface[];
@@ -34,17 +35,17 @@ export class CreateEditGistComponent implements OnInit {
               private modeService: ModeService) { }
 
   ngOnInit() {
-    this.route.data.subscribe( data => {
+    this.route.data.pipe(map(data => data.data)).subscribe( data => {
 
-      if (data.data) {
+      if (data) {
         this.editMode = true;
       }
 
-      this.initForm(data.data.files);
+      this.initForm(data.files);
 
 
-      if (data.data) {
-        this.incomingGist = data.data;
+      if (data) {
+        this.incomingGist = data;
         this.patchForm(this.incomingGist);
 
       }
@@ -76,19 +77,19 @@ export class CreateEditGistComponent implements OnInit {
     if (!files) {
       return [this.createFileGroup()];
     }
+
     const filesTemplates: FormGroup[] = [];
-    Object.keys(files).forEach( file => {
+
+    Object.keys(files).forEach( () => {
       filesTemplates.push(this.createFileGroup());
     });
+
     return filesTemplates;
   }
-
-
 
   resolveTrackBy(index: number) {
     return index;
   }
-
 
   get filesArray() {
     return this.form.get('files') as FormArray;
@@ -98,13 +99,11 @@ export class CreateEditGistComponent implements OnInit {
     this.filesArray.push(this.createFileGroup());
   }
 
-  private removeFileGroup(index) {
+  private removeFileGroup(index: number) {
     this.filesArray.removeAt(index);
   }
 
-
   private createFileGroup() {
-
     if (this.editMode) {
       return this.formBuilder.group({
         filename: ['', Validators.required],
@@ -121,33 +120,34 @@ export class CreateEditGistComponent implements OnInit {
 
   onSubmit(form) {
 
-    if (this.editMode) {
-      this.incomingGist.description = form.description;
-
-      if (form.files) {
-        form.files.forEach( (file: FileInterface) => {
-          if (this.incomingGist.files.hasOwnProperty(file.filename)) {
-            this.incomingGist.files[file.filename].filename = file.filename;
-            this.incomingGist.files[file.filename].content = file.content;
-
-            return;
-          }
-
-          this.incomingGist.files[file.filename] = file;
-
-        });
-
-      }
-      this.gitApiService.editGist(this.incomingGist, this.incomingGist.id).subscribe( (response) => {
-        this.router.navigate(['/gists', response.id]);
-      });
-    } else {
+    if (!this.editMode) {
       const requestBody = this.convertDataToRequestBody(form);
+
       this.gitApiService.createGist(requestBody).subscribe( (data) => {
         this.router.navigate(['/gists', data.id]);
       });
 
+      return;
     }
+
+    this.incomingGist.description = form.description;
+
+    if (form.files) {
+      form.files.forEach( (file: FileInterface) => {
+        if (this.incomingGist.files.hasOwnProperty(file.filename)) {
+          this.incomingGist.files[file.filename].filename = file.filename;
+          this.incomingGist.files[file.filename].content = file.content;
+
+          return;
+        }
+
+        this.incomingGist.files[file.filename] = file;
+      });
+    }
+
+    this.gitApiService.editGist(this.incomingGist, this.incomingGist.id).subscribe( (response) => {
+      this.router.navigate(['/gists', response.id]);
+    });
   }
 
   convertDataToRequestBody(formData: any) {

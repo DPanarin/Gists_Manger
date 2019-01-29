@@ -14,12 +14,8 @@ import { FileComponent } from './file/file.component';
 import {TokenInterceptorService} from './token-interceptor.service';
 import { CreateEditGistComponent } from './create-edit-gist/create-edit-gist.component';
 import {AceEditorModule} from 'ng2-ace-editor';
-
-
-const monacoConfig = {
-  baseUrl: 'app-name/assets',
-};
-
+import { ActivityCalendarComponent } from './activity-calendar/activity-calendar.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -33,6 +29,7 @@ const monacoConfig = {
     GistFilesComponent,
     FileComponent,
     CreateEditGistComponent,
+    ActivityCalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +38,8 @@ const monacoConfig = {
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    AceEditorModule
+    AceEditorModule,
+    DragDropModule
   ],
   providers: [
     {

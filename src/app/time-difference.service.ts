@@ -5,24 +5,30 @@ import { Injectable } from '@angular/core';
 })
 export class TimeDifferenceService {
 
+  private minutesInHour = 60;
+  private minutesInDay = 1440;
+  private hoursInDay = 24;
+  private millisecondsInSecond = 1000;
+  private secondsInMinute = 60;
+
   constructor() { }
 
   getTimeDifference(updated_at: string) {
     const lastUpdate = new Date(updated_at);
     const currentDate = new Date();
 
-    const differenceInMinutes = ((currentDate.getTime() - lastUpdate.getTime()) / 1000) / 60;
+    const differenceInMinutes = ((currentDate.getTime() - lastUpdate.getTime()) / this.millisecondsInSecond) / this.secondsInMinute;
 
-    if (differenceInMinutes < 60) {
+    if (differenceInMinutes < this.minutesInHour) {
       return `updated ${differenceInMinutes} minute(s) ago`;
     }
 
-    if (60 < differenceInMinutes && differenceInMinutes < 1440) {
-      return `updated ${Math.round(differenceInMinutes / 60)} hour(s) ago`;
+    if (this.minutesInHour < differenceInMinutes && differenceInMinutes < this.minutesInDay) {
+      return `updated ${Math.round(differenceInMinutes / this.minutesInHour)} hour(s) ago`;
     }
 
-    if (differenceInMinutes > 1440) {
-      return `updated ${Math.round(differenceInMinutes / 60 / 24)} day(s) ago`;
+    if (differenceInMinutes > this.minutesInDay) {
+      return `updated ${Math.round(differenceInMinutes / this.minutesInHour / this.hoursInDay)} day(s) ago`;
     }
 
   }
