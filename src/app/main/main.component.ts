@@ -22,8 +22,8 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.tempAuthCode = this.route.snapshot.queryParamMap.get('code');
     this.apiService.exchangeCodeToAccessToken(this.tempAuthCode).subscribe(data => {
-      if (data['token']) {
-        this.tokenSaver.setAccessToken(data['token']);
+      if (data.token) {
+        this.tokenSaver.setAccessToken(data.token);
         this.behaviorService.onTokenCreate.emit();
         this.router.navigate(['/gists']);
       }

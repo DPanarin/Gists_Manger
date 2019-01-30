@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AccessTokenStorageService} from './access-token-storage.service';
 import {GistInterface} from './gist-interface';
+import {User} from './user';
+import {TokenResponse} from './token-response';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class GitHubService {
   private clientSecret = 'adaa98cf59a014adbb0500694669e9f8cf92eb73';
   private accessTokenGetPoint = 'https://github.com/login/oauth/access_token';
   private basePath = 'https://api.github.com/gists';
+  private eventsSegment = '/users/DPanarin/events';
 
 
   constructor(private httpClient: HttpClient,
@@ -22,14 +25,14 @@ export class GitHubService {
   }
 
   getCurrentUser() {
-    return this.httpClient.get('https://api.github.com/user', {
+    return this.httpClient.get<User>('https://api.github.com/user', {
       headers: {
         Authorization: 'token ' + this.accessTokenStorage.getAccessToken(),
       }});
   }
 
   exchangeCodeToAccessToken(code: string) {
-    return this.httpClient.get(`http://localhost:9999/authenticate/${code}`, { params: {'scopes': ['gists']}});
+    return this.httpClient.get<TokenResponse>(`http://localhost:9999/authenticate/${code}`, { params: {'scopes': ['gists']}});
   }
 
   getGistsList() {
@@ -37,10 +40,10 @@ export class GitHubService {
   }
 
   getGist(gistId: string) {
-    return this.httpClient.get(`${this.basePath}/${gistId}`);
+    return this.httpClient.get<GistInterface>(`${this.basePath}/${gistId}`);
   }
 
-  createGist(gist: Object) {
+  createGist(gist: GistInterface) {
     return this.httpClient.post<GistInterface>(this.basePath, gist);
   }
 
@@ -48,7 +51,11 @@ export class GitHubService {
     return this.httpClient.delete(`${this.basePath}/${gistId}`);
   }
 
-  editGist(gist: Object, gistId: string) {
+  editGist(gist: GistInterface, gistId: string) {
     return this.httpClient.patch<GistInterface>(`${this.basePath}/${gistId}`, gist);
+  }
+
+  getUserEvents() {
+    return this.httpClient.get(`https://api.github.com${this.eventsSegment}`);
   }
 }

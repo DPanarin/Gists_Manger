@@ -1,34 +1,30 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Extentions} from './extentions.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModeService {
-  private defaultMode = 'text';
-
-  // TODO add enum ng g enum
-
-  constructor() { }
 
   getMode(filename: string) {
     if (!filename) {
-      return this.defaultMode;
+      return Extentions.defaultMode;
     }
 
     const arrLength = filename.split('.').length;
     const fileExtension = filename.split('.')[arrLength - 1];
 
     if (fileExtension === 'js' || fileExtension === 'javascript' || fileExtension === 'ts') {
-      return 'javascript';
+      return Extentions.javascript;
     }
     if (fileExtension === 'json') {
-      return 'json';
+      return Extentions.json;
     }
     if (fileExtension === 'css') {
-      return 'css';
+      return Extentions.css;
     }
     if (fileExtension === 'html') {
-      return 'html';
+      return Extentions.html;
     }
   }
 }

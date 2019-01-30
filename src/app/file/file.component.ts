@@ -19,7 +19,7 @@ export class FileComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private apiService: GitHubService, private modeService: ModeService) { }
 
   ngOnInit() {
-    this.route.data.subscribe( (data: any) => {
+    this.route.data.subscribe( (data) => {
       this.file = data.file;
     });
   }

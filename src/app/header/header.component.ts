@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     this.behaviorService.onTokenCreate
       .pipe(switchMap(() => this.apiService.getCurrentUser()))
       .subscribe(user => {
-        this.userName = user['login'];
+        this.userName = user.login;
         this.userLogged = true;
         this.router.navigate(['/gists']);
       }, () => (this.userLogged = false));

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {GitHubService} from '../git-hub.service';
+import {GistInterface} from '../gist-interface';
 
 @Component({
   selector: 'app-gists-list',
@@ -9,7 +10,7 @@ import {GitHubService} from '../git-hub.service';
 })
 export class GistsListComponent implements OnInit, OnDestroy {
 
-  gistsList;
+  gistsList: GistInterface[];
   private routeSubscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private dataService: GitHubService) { }
@@ -20,6 +21,14 @@ export class GistsListComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Temporary method for testing some api feature
+   */
+  getEvents() {
+    this.dataService.getUserEvents().subscribe( userEvents => {
+      console.log(userEvents);
+    });
+  }
 
   deleteGist(gist) {
     this.dataService.deleteGist(gist.id).subscribe( () => {

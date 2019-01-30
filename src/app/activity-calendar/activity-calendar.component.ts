@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {GistInterface} from '../gist-interface';
 import {GitHubService} from '../git-hub.service';
 
@@ -23,12 +23,11 @@ export class ActivityCalendarComponent implements OnInit {
 
   monthDays: number[];
 
-  constructor(private gitService: GitHubService) {
-  }
+  constructor(private gitService: GitHubService) { }
 
   ngOnInit() {
     this.fillCalendar();
-    this.gitService.getGistsList().subscribe(gistsData => {
+    this.gitService.getGistsList().subscribe( gistsData => {
       this.gists = gistsData;
     });
   }
@@ -55,14 +54,17 @@ export class ActivityCalendarComponent implements OnInit {
   }
 
   hasActivity(day: number) {
-    for (const gist of this.gists) {
-      if (new Date(gist.updated_at).getDate() === day) {
-        return true;
-      }
-    }
 
-    return false;
+    return this.gists.some(gist => this.datesEqual(gist, day));
 
+  }
+
+  // private isEqual = function (gist: GistInterface, day: number) {
+  //   return new Date(gist.updated_at).getDate() === day || new Date(gist.created_at).getDate() === day;
+  // };
+
+  datesEqual(gist: GistInterface, dateForCheck: number) {
+    return new Date(gist.updated_at).getDate() === dateForCheck || new Date(gist.created_at).getDate() === dateForCheck;
   }
 
 }
