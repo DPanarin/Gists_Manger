@@ -4,6 +4,10 @@ import {GitHubService} from '../git-hub.service';
 import {FileInterface} from '../file-interface';
 import {ModeService} from '../mode.service';
 
+export interface ResolverData {
+  file: FileInterface;
+}
+
 @Component({
   selector: 'app-file',
   templateUrl: './file.component.html',
@@ -19,7 +23,7 @@ export class FileComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private apiService: GitHubService, private modeService: ModeService) { }
 
   ngOnInit() {
-    this.route.data.subscribe( (data) => {
+    this.route.data.subscribe( (data: ResolverData) => {
       this.file = data.file;
     });
   }
@@ -27,9 +31,6 @@ export class FileComponent implements OnInit, AfterViewInit {
   displayContent() {
     const content = this.editor.getEditor().getValue();
     console.log(content);
-  }
-
-  onChange(event) {
   }
 
   getMode(filename: string) {

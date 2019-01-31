@@ -11,8 +11,6 @@ export class TimeDifferenceService {
   private millisecondsInSecond = 1000;
   private secondsInMinute = 60;
 
-  constructor() { }
-
   getTimeDifference(updated_at: string) {
     const lastUpdate = new Date(updated_at);
     const currentDate = new Date();

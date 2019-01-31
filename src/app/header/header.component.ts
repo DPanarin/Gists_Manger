@@ -3,8 +3,7 @@ import {Router} from '@angular/router';
 import {AccessTokenStorageService} from '../access-token-storage.service';
 import {GitHubService} from '../git-hub.service';
 import {BehaviorService} from '../behavior.service';
-import {catchError, switchMap, tap} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',

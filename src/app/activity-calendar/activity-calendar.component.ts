@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {GistInterface} from '../gist-interface';
-import {GitHubService} from '../git-hub.service';
+
 
 @Component({
   selector: 'app-activity-calendar',
@@ -8,6 +8,8 @@ import {GitHubService} from '../git-hub.service';
   styleUrls: ['./activity-calendar.component.scss']
 })
 export class ActivityCalendarComponent implements OnInit {
+
+  @Input() gists: GistInterface[];
 
   weekDays = [
     'Mon',
@@ -19,17 +21,12 @@ export class ActivityCalendarComponent implements OnInit {
     'Sun'
   ];
 
-  gists: GistInterface[];
-
   monthDays: number[];
 
-  constructor(private gitService: GitHubService) { }
+  constructor() { }
 
   ngOnInit() {
     this.fillCalendar();
-    this.gitService.getGistsList().subscribe( gistsData => {
-      this.gists = gistsData;
-    });
   }
 
   private fillCalendar() {

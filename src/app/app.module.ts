@@ -16,6 +16,7 @@ import { CreateEditGistComponent } from './create-edit-gist/create-edit-gist.com
 import {AceEditorModule} from 'ng2-ace-editor';
 import { ActivityCalendarComponent } from './activity-calendar/activity-calendar.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -30,6 +31,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FileComponent,
     CreateEditGistComponent,
     ActivityCalendarComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
