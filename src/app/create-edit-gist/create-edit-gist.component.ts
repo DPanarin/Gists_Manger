@@ -95,7 +95,7 @@ export class CreateEditGistComponent implements OnInit {
     return this.form.get('files') as FormArray;
   }
 
-  private addFileGroup() {
+  addFileGroup() {
     this.filesArray.push(this.createFileGroup());
   }
 

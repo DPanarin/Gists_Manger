@@ -21,11 +21,21 @@ export class ActivityCalendarComponent implements OnInit {
     'Sun'
   ];
 
+  dates: number[];
+
   monthDays: number[];
 
   constructor() { }
 
   ngOnInit() {
+    this.dates = this.gists.reduce((acc: number[], gist) => {
+      acc.push(new Date(gist.created_at).getDate());
+      acc.push(new Date(gist.updated_at).getDate());
+      return acc;
+      }, []);
+
+    console.log(this.dates);
+
     this.fillCalendar();
   }
 
@@ -52,7 +62,9 @@ export class ActivityCalendarComponent implements OnInit {
 
   hasActivity(day: number) {
 
-    return this.gists.some(gist => this.datesEqual(gist, day));
+    return this.dates.includes(day);
+
+    // return this.gists.some(gist => this.datesEqual(gist, day));
 
   }
 
